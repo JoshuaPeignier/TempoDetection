@@ -22,9 +22,15 @@ H3 = 800
 H4 = 1600
 H5 = 3200
 
-def filtre_1:
+#def filtre_1:
 
 #%% Mise en place de filtre passe haut
-original_signal = wavread('signal43.wav') # for example
-beat = wavread('tap43.wav') # for example
+x1,original_signal = wavread('signal43.wav') # for example ; x1 is the size of the array, original_signal is the data itself
+x2,beat = wavread('tap43.wav') # for example ; same here
 
+#print(original_signal)
+#print(beat)
+
+plt.figure(1)
+plt.plot(original_signal)
+plt.show()
