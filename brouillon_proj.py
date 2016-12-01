@@ -7,6 +7,7 @@ Created on Thu Dec  1 16:34:39 2016
 
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy.signal as sig
 import math
 import cmath
 from numpy.fft import fft
