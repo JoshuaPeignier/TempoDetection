@@ -10,7 +10,9 @@ import matplotlib.pyplot as plt
 import math
 import cmath
 from numpy.fft import fft
-from winsound import PlaySound
-import winsound
+#from winsound import PlaySound
+#import winsound
 from scipy.io.wavfile import read as wavread
 
+original_signal = wavread('signal43.wav') # for example
+beat = wavread('tap43.wav') # for example
