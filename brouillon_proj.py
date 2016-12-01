@@ -22,7 +22,12 @@ H3 = 800
 H4 = 1600
 H5 = 3200
 
-def filtre_1:
+def transfert_passe_bas(f,fc):
+    dm = 1 - (f/fc)**2
+    return 1/dm
+
+def filtre_1():
+    
 
 #%% Mise en place de filtre passe haut
 original_signal = wavread('signal43.wav') # for example
