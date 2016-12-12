@@ -27,41 +27,16 @@ def transfert_passe_bas(f,fc):
     dm = 1 - (f/fc)**2
     return 1/dm
 
-
-#def filtre_1():
     
 #%% Mise en place de filtre passe haut
 x1,original_signal = wavread('signal43.wav') # for example ; x1 is the size of the array, original_signal is the data itself
 x2,beat = wavread('tap43.wav') # for example ; same here
 
-#M = 16 # ou 32
-#v_c = 0.1 # Hz
-#bpass = sig.remez(112, [0, 0.9*v_c, 1.1*v_c,0.5], [1, 0]) #other parameteres here : Hz : sampling frequency ; maxiter : max number of iterations
-#freq, response = sig.freqz(bpass)
-#ampl = np.abs(response)
-#fig = plt.figure(2)
-#plt.plot(freq/(2*np.pi), 20*np.log10(ampl), 'b-')
-#plt.axis([0.,freq[-1]/(2*np.pi),-50.,2.])
-#plt.show()
-
-# Implementing the TFD filter bank from part 1
-# M is the number of taps, v_c is the cutoff frequency
-#def filterbank_2(v_c,M):
-    # the prototype filter works like that : sig.remez(250, [0, 0.9*v_c, 1.1*v_c,20000], [1, 0], Hz = 44000)
-#    res = []
-#    plt.figure()
-#    for k in range(M):
-#        bpass = sig.remez(112, [0, 0.9*(v_c-k)/M, 1.1*(v_c-k)/M,0.5], [1, 0])
-#        freq, response = sig.freqz(bpass)
-#        ampl = np.abs(response)
-#        plt.plot(freq/(2*np.pi), 20*np.log10(ampl), 'b-')
-#        plt.axis([0.,freq[-1]/(2*np.pi),-50.,2.])
-#    plt.show()
-
-# Test
-#filterbank_2(0.2,16)     
-
 # Implementation of Scheirer filterbank
+# For now, returns nothing, only does tests and print the magnitude frequency response of each band
+# The basic frequence still has to be determined
+# The functions of scipy.signal work with normalized frequencies, whereas we want to print real frequencies.
+# I think we should return the list of (ai,bi) pairs
 def filter_bank_1():
     res = []
     fig = plt.figure()
@@ -70,7 +45,8 @@ def filter_bank_1():
     plt.xlabel('Frequency (Hz)')
     ax1 = fig.add_subplot(111)
     
-    v = 200/44000
+    samp_v = 44000 # sampling frequence
+    v = 200/samp_v # reduced frequence
     # 1st band
     # order 6 ;  max difference in passing band = 3 ; max distance in stop band = 40 ; one scalar or an length-2 array giving critical frequencies ; btype = low pass
     b1,a1 = sig.ellip(6, 3, 40, v, btype='low',analog=True)
@@ -97,8 +73,6 @@ def filter_bank_1():
 
 
     plt.show()
-    
-    
     fig = plt.figure()
     plt.title('Digital filter frequency response')
     plt.ylabel('Magnitude response (dB)', color='b')
