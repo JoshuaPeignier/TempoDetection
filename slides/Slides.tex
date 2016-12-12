@@ -7,13 +7,14 @@
 \usepackage{array}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{bbold}
 \usepackage[french]{babel}
 \usetheme{Berlin}
 \useoutertheme{split}
 \definecolor{grenat}{RGB}{139,26,26}
 \definecolor{beige}{RGB}{255,255,220}
 
-\title{\textbf{Détection du tempo et du rythme dans un morceau de musique}}
+\title{\textbf{Détection du tempo dans un morceau de musique}}
 \author{Joshua Peignier \and Estelle Varloot}
 
 \setbeamercolor{structure}{fg = grenat}
@@ -46,19 +47,19 @@
 
 
 \begin{frame}
- \frametitle{Qu'est-ce que le rythme ?}
+ \frametitle{Qu'est-ce que le tempo ?}
  \begin{itemize}
   \item<2-> Notion empirique \onslide<3->{$\rightarrow$ Difficilement formalisable}
   \item<4-> Globalement : la fréquence auquel on tape du pied pour accompagner un morceau
   \item<5-> Pour les musiciens : à rapprocher de la pulsation
-  \item<6-> Comment extraire le rythme d'un morceau ?
+  \item<6-> Comment extraire le tempo d'un morceau ?
  \end{itemize}
 \end{frame}
 
 \begin{frame}
  \frametitle{Problème difficile}
  \begin{itemize}
-  \item Intuitivement : le rythme est un objet périodique.
+  \item Intuitivement : le tempo est un objet périodique.
   \item<2-> On peut s'attendre à trouver des pics aux fréquences concernées dans le spectre du signal
   \item<3-> Trop peu d'information exploitable en pratique
   \item<4-> Nécessité de transformer le signal reçu
@@ -93,7 +94,7 @@
 
  \begin{frame}
   \begin{itemize}
-   \item Le rythme : deux informations
+   \item Le tempo : deux informations
    \begin{itemize}
    \item<2-> La fréquence de la pulsation
    \item<3-> La phase de la pulsation
@@ -114,7 +115,7 @@
   \end{itemize}
  \end{frame}
 
- \section{Séparation en 6 bandes}
+ \section{Séparation en bandes et extraction d'enveloppe}
  
   \begin{frame}
        \tableofcontents[currentsection]
@@ -122,10 +123,87 @@
 
  \setbeamercolor{background canvas}{bg = white}
  \begin{frame}
+    \frametitle{L'implémentation de Scheirer}
     \begin{center}
    \includegraphics[scale = 0.3]{filterbank.png}
    \end{center}
  \end{frame}
  \setbeamercolor{background canvas}{bg = beige}
+ 
+  \begin{frame}
+    %\begin{center}
+    \frametitle{Notre implémentation}
+   \includegraphics[scale = 0.26]{1stband.png}
+   \includegraphics[scale = 0.257]{2ndband.png}
+     \begin{itemize}
+   \item<2-> Réalisée à l'aide de filtres elliptiques
+  \end{itemize}
+   %\end{center}
+ \end{frame}
+ 
+ \section{Détection d'attaque}
+   \begin{frame}
+       \tableofcontents[currentsection]
+\end{frame}
+
+ \begin{frame}
+  \begin{itemize}
+   \item Pour chacune des sorties : convolution avec une fenêtre de Hann
+   \onslide<2->{
+    \begin{eqnarray*}
+h(t) & = &  \mathbb{1}_{[0,T]}\frac{1}{2}(1-cos(2\pi\frac{t}{T}))
+ \end{eqnarray*}
+   }
+  \end{itemize}
+  \begin{itemize}
+  \item<3-> Principe : Masquer les modulations rapides
+  \end{itemize}
+ \onslide<4->{$\rightarrow$ Extraction d'une enveloppe}
+ \end{frame}
+
+ \begin{frame}
+  \begin{itemize}
+   \item Dérivation et décimation
+   \item<2-> Encore à implémenter
+  \end{itemize}
+
+ \end{frame}
+
+ \section{Filtres résonateurs}
+   \begin{frame}
+       \tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+ \item Un banc de filtres
+ \item<2-> Balayage de fréquence pour trouver les différents tempos possibles
+ \item<3-> Sommation des différentes sorties
+ \item<4-> Recherche de l'énergie maximale pour trouver le tempo
+\end{itemize}
+
+ 
+\end{frame}
+
+ 
+ \section{Conclusion}
+  \begin{frame}
+       \tableofcontents[currentsection]
+\end{frame}
+
+ \begin{frame}
+  \begin{itemize}
+   \item Implémenté :
+   \begin{itemize}
+    \item<2-> Le banc de filtres séparateurs
+   \end{itemize}
+   \item<3-> A faire : \onslide<4->{Tout le reste}
+    \begin{itemize}
+      \item<5-> La convolution avec la fenêtre de Hann 
+    \end{itemize}
+  \end{itemize}
+
+ \end{frame}
+
 
 \end{document}
