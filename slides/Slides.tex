@@ -99,8 +99,33 @@
    \item<3-> La phase de la pulsation
    \end{itemize}
    \item<4-> Pour la détection : nécessiter de trouver la phase
+   \item<5-> Algorithme utilisé : développé empiriquement
   \end{itemize}
 
  \end{frame}
+
+ \begin{frame}
+  \begin{itemize}
+   \item Division du signal en 6 bandes spectrales à l'aide d'un banc de filtres
+   \item<2-> Pour chaque sortie : calcul de l'enveloppe du signal
+   \item<3-> Calcul de la dérivée temporelle de chaque enveloppe
+   \item<4-> Transmission des données à des bancs de filtres résonateurs
+   \item<5-> Extraction de signaux en phase avec le signal d'origine
+  \end{itemize}
+ \end{frame}
+
+ \section{Séparation en 6 bandes}
+ 
+  \begin{frame}
+       \tableofcontents[currentsection]
+\end{frame}
+
+ \setbeamercolor{background canvas}{bg = white}
+ \begin{frame}
+    \begin{center}
+   \includegraphics[scale = 0.3]{filterbank.png}
+   \end{center}
+ \end{frame}
+ \setbeamercolor{background canvas}{bg = beige}
 
 \end{document}
